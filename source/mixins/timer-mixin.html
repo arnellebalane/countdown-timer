@@ -4,19 +4,32 @@
             static get properties() {
                 return {
                     startTimestamp: Number,
-                    timeElapsed: Number
+                    timeElapsed: {
+                        type: Number,
+                        value: 0
+                    },
+                    running: {
+                        type: Boolean,
+                        value: false
+                    }
                 };
             }
 
             start() {
                 this.startTimestamp = new Date().getTime();
+                this.running = true;
                 this.tick();
             }
 
+            stop() {
+                this.running = false;
+                this.startTimestamp = undefined;
+                this.timeElapsed = 0;
+            }
+
             tick() {
-                if (!this.timeRemaining) {
-                    return;
-                }
+                if (!this.running) return;
+
                 requestAnimationFrame(this.tick.bind(this));
                 const now = new Date().getTime();
                 this.timeElapsed = now -  this.startTimestamp;
