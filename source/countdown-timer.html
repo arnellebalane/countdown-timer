@@ -1,0 +1,17 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="countdown-timer">
+    <template>
+        <h1>Countdown Timer</h1>
+    </template>
+
+    <script>
+        class CountdownTimer extends Polymer.Element {
+            static get is() {
+                return 'countdown-timer';
+            }
+        }
+
+        customElements.define(CountdownTimer.is, CountdownTimer);
+    </script>
+</dom-module>
