@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="countdown-timer.html">
+
+<dom-module id="app-container">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+            }
+
+            countdown-timer {
+                flex-grow: 1;
+            }
+        </style>
+
+        <countdown-timer></countdown-timer>
+    </template>
+
+    <script>
+        class AppContainer extends Polymer.Element {
+            static get is() {
+                return 'app-container';
+            }
+        }
+
+        customElements.define(AppContainer.is, AppContainer);
+    </script>
+</dom-module>
