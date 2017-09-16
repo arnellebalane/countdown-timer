@@ -1,0 +1,17 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Quicksand", sans-serif;
+    font-size: 1.6em;
+    color: #333;
+}

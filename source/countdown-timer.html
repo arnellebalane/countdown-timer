@@ -1,8 +1,25 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="mixins/timer-mixin.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 
 <dom-module id="countdown-timer">
     <template>
+        <style>
+            :host {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            h1 {
+                margin: 0;
+                font-family: "Inconsolata", monospace;
+                font-size: 50vmin;
+                font-weight: 300;
+            }
+        </style>
+
         <h1>[[timeRemainingFormatted]]</h1>
     </template>
 
