@@ -2,13 +2,67 @@
 
 <dom-module id="countdown-timer">
     <template>
-        <h1>Countdown Timer</h1>
+        <h1>[[timeRemainingFormatted]]</h1>
     </template>
 
     <script>
+        function pad(value, length=2, character='0') {
+            return String(value).padStart(length, character);
+        }
+
         class CountdownTimer extends Polymer.Element {
             static get is() {
                 return 'countdown-timer';
+            }
+
+            static get properties() {
+                return {
+                    startTimestamp: Number,
+                    duration: Number,
+                    timeElapsed: Number,
+                    timeRemaining: {
+                        type: Number,
+                        computed: 'computeTimeRemaining(duration, timeElapsed)'
+                    },
+                    timeRemainingFormatted: {
+                        type: String,
+                        computed: 'computeTimeRemainingFormatted(timeRemaining)'
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+                this.duration = 62000;
+                this.timeElapsed = 1000;
+                this.start();
+            }
+
+            computeTimeRemaining(duration=0, timeElapsed=0) {
+                return Math.max(duration - timeElapsed, 0);
+            }
+
+            computeTimeRemainingFormatted(timeRemaining=0) {
+                const msInSecond = 1000;
+                const msInMinute = 60 * msInSecond;
+                const msInHour = 60 * msInMinute;
+                const seconds = Math.floor(timeRemaining % msInMinute /  msInSecond);
+                const minutes = Math.floor(timeRemaining % msInHour / msInMinute);
+                return `${pad(minutes)}:${pad(seconds)}`;
+            }
+
+            start() {
+                this.startTimestamp = new Date().getTime();
+                this.tick();
+            }
+
+            tick() {
+                if (!this.timeRemaining) {
+                    return;
+                }
+                requestAnimationFrame(this.tick.bind(this));
+                const now = new Date().getTime();
+                this.timeElapsed = now -  this.startTimestamp;
             }
         }
 
