@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="mixins/timer-mixin.html">
 
 <dom-module id="countdown-timer">
     <template>
@@ -10,16 +11,14 @@
             return String(value).padStart(length, character);
         }
 
-        class CountdownTimer extends Polymer.Element {
+        class CountdownTimer extends TimerMixin(Polymer.Element) {
             static get is() {
                 return 'countdown-timer';
             }
 
             static get properties() {
                 return {
-                    startTimestamp: Number,
                     duration: Number,
-                    timeElapsed: Number,
                     timeRemaining: {
                         type: Number,
                         computed: 'computeTimeRemaining(duration, timeElapsed)'
@@ -34,7 +33,6 @@
             ready() {
                 super.ready();
                 this.duration = 62000;
-                this.timeElapsed = 1000;
                 this.start();
             }
 
@@ -49,20 +47,6 @@
                 const seconds = Math.floor(timeRemaining % msInMinute /  msInSecond);
                 const minutes = Math.floor(timeRemaining % msInHour / msInMinute);
                 return `${pad(minutes)}:${pad(seconds)}`;
-            }
-
-            start() {
-                this.startTimestamp = new Date().getTime();
-                this.tick();
-            }
-
-            tick() {
-                if (!this.timeRemaining) {
-                    return;
-                }
-                requestAnimationFrame(this.tick.bind(this));
-                const now = new Date().getTime();
-                this.timeElapsed = now -  this.startTimestamp;
             }
         }
 

@@ -1,0 +1,26 @@
+<script>
+    function TimerMixin(SuperClass) {
+        return class extends SuperClass {
+            static get properties() {
+                return {
+                    startTimestamp: Number,
+                    timeElapsed: Number
+                };
+            }
+
+            start() {
+                this.startTimestamp = new Date().getTime();
+                this.tick();
+            }
+
+            tick() {
+                if (!this.timeRemaining) {
+                    return;
+                }
+                requestAnimationFrame(this.tick.bind(this));
+                const now = new Date().getTime();
+                this.timeElapsed = now -  this.startTimestamp;
+            }
+        }
+    }
+</script>
