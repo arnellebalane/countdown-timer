@@ -1,0 +1,26 @@
+{
+  "name": "countdown-timer",
+  "authors": [
+    "Arnelle Balane <arnellebalane@gmail.com>"
+  ],
+  "description": "countdown timer application with polymer",
+  "main": "index.html",
+  "keywords": [
+    "countdown",
+    "timer",
+    "polymer"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.2"
+  }
+}
