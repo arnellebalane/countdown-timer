@@ -6,13 +6,18 @@
     <template>
         <style>
             :host {
-                display: flex;
-                flex-direction: column;
                 height: 100vh;
             }
 
             countdown-timer {
-                flex-grow: 1;
+                height: 100vh;
+            }
+
+            control-panel {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
             }
         </style>
 

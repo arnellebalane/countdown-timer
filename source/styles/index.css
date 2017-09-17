@@ -16,3 +16,9 @@ body {
     font-size: 1.6em;
     color: #333;
 }
+
+input,
+button {
+    font: inherit;
+    color: inherit;
+}
