@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="countdown-timer.html">
+<link rel="import" href="control-panel.html">
 
 <dom-module id="app-container">
     <template>
@@ -15,13 +16,40 @@
             }
         </style>
 
-        <countdown-timer></countdown-timer>
+        <countdown-timer
+            duration="[[duration]]"
+            running="{{running}}"></countdown-timer>
+        <control-panel
+            duration="{{duration}}"
+            running="[[running]]"
+            on-start="handleTimerStart"
+            on-reset="handleTimerReset"></control-panel>
     </template>
 
     <script>
         class AppContainer extends Polymer.Element {
             static get is() {
                 return 'app-container';
+            }
+
+            static get properties() {
+                return {
+                    duration: Number,
+                    running: {
+                        type: Boolean,
+                        value: false
+                    }
+                };
+            }
+
+            handleTimerStart() {
+                const countdownTimer = this.shadowRoot.querySelector('countdown-timer');
+                countdownTimer.start();
+            }
+
+            handleTimerReset() {
+                const countdownTimer = this.shadowRoot.querySelector('countdown-timer');
+                countdownTimer.stop();
             }
         }
 

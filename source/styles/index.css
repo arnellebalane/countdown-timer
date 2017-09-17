@@ -12,6 +12,7 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: "Quicksand", sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-size: 1.6em;
     color: #333;
 }

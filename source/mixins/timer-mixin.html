@@ -10,9 +10,14 @@
                     },
                     running: {
                         type: Boolean,
-                        value: false
+                        notify: true,
+                        observer: 'observeRunning'
                     }
                 };
+            }
+
+            observeRunning(running) {
+                return running ? this.start() : this.stop();
             }
 
             start() {

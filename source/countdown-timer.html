@@ -45,12 +45,6 @@
                 };
             }
 
-            ready() {
-                super.ready();
-                this.duration = 62000;
-                this.start();
-            }
-
             computeTimeRemaining(duration=0, timeElapsed=0) {
                 return Math.max(duration - timeElapsed, 0);
             }

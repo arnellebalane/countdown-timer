@@ -1,0 +1,64 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="control-panel">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                justify-content: center;
+                padding: 2rem;
+                border: 1px solid red;
+            }
+        </style>
+
+        <input type="text" value="{{durationString::change}}">
+        <button on-click="setTimerDuration">Set</button>
+        <template is="dom-if" if="{{!running}}">
+            <button on-click="startTimer">Start</button>
+        </template>
+        <template is="dom-if" if="{{running}}">
+            <button on-click="resetTimer">Reset</button>
+        </template>
+    </template>
+
+    <script>
+        class ControlPanel extends Polymer.Element {
+            static get is() {
+                return 'control-panel';
+            }
+
+            static get properties() {
+                return {
+                    duration: {
+                        type: Number,
+                        notify: true
+                    },
+                    durationString: {
+                        type: String,
+                        value: '00:00'
+                    },
+                    running: Boolean
+                };
+            }
+
+            setTimerDuration() {
+                const [minutes, seconds] = this.durationString.split(':')
+                    .map((number) => parseInt(number, 10));
+                const msInSecond = 1000;
+                const msInMinute = 60 * msInSecond;
+                this.duration = minutes * msInMinute + seconds * msInSecond;
+            }
+
+            startTimer() {
+                this.dispatchEvent(new CustomEvent('start'));
+            }
+
+            resetTimer() {
+                this.dispatchEvent(new CustomEvent('reset'));
+            }
+        }
+
+        customElements.define(ControlPanel.is, ControlPanel);
+    </script>
+</dom-module>
