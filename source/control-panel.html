@@ -12,8 +12,7 @@
             }
         </style>
 
-        <input type="text" value="{{durationString::change}}">
-        <button on-click="setTimerDuration">Set</button>
+        <input type="text" value="{{durationString::input}}">
         <template is="dom-if" if="{{!running}}">
             <button on-click="startTimer">Start</button>
         </template>
@@ -36,15 +35,19 @@
                     },
                     durationString: {
                         type: String,
-                        value: '00:00'
+                        value: '00:00',
+                        observer: 'observeDurationString'
                     },
                     running: Boolean
                 };
             }
 
-            setTimerDuration() {
-                const [minutes, seconds] = this.durationString.split(':')
-                    .map((number) => parseInt(number, 10));
+            observeDurationString() {
+                if (!/\d+:\d+/.test(this.durationString)) return;
+
+                let [minutes, seconds] = this.durationString.split(':')
+                seconds = seconds.length < 1 ? seconds + '0' : seconds;
+                [minutes, seconds] = [parseInt(minutes, 10), parseInt(seconds, 10)];
                 const msInSecond = 1000;
                 const msInMinute = 60 * msInSecond;
                 this.duration = minutes * msInMinute + seconds * msInSecond;
