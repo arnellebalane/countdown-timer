@@ -47,10 +47,10 @@
         </style>
 
         <input type="text" value="{{durationString::input}}">
-        <template is="dom-if" if="{{!running}}">
+        <template is="dom-if" if="[[!running]]">
             <button on-click="startTimer">Start</button>
         </template>
-        <template is="dom-if" if="{{running}}">
+        <template is="dom-if" if="[[running]]">
             <button on-click="resetTimer">Reset</button>
         </template>
     </template>

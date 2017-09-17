@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="mixins/timer-mixin.html">
 
 <dom-module id="countdown-timer">
@@ -10,15 +11,29 @@
                 align-items: center;
             }
 
-            h1 {
+            h1,
+            h2 {
                 margin: 0;
                 font-family: "Inconsolata", monospace;
-                font-size: 50vmin;
                 font-weight: 300;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 50vmin;
+            }
+
+            h2 {
+                font-size: 30vmin;
             }
         </style>
 
-        <h1>[[timeRemainingFormatted]]</h1>
+        <template is="dom-if" if="[[!isCountdownFinished(timeRemaining)]]">
+            <h1>[[timeRemainingFormatted]]</h1>
+        </template>
+        <template is="dom-if" if="[[isCountdownFinished(timeRemaining)]]">
+            <h2>Time's Up!</h2>
+        </template>
     </template>
 
     <script>
@@ -56,6 +71,10 @@
                 const seconds = Math.floor(timeRemaining % msInMinute /  msInSecond);
                 const minutes = Math.floor(timeRemaining % msInHour / msInMinute);
                 return `${pad(minutes)}:${pad(seconds)}`;
+            }
+
+            isCountdownFinished(timeRemaining) {
+                return this.duration > 0 && timeRemaining === 0;
             }
         }
 
