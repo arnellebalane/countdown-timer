@@ -12,9 +12,11 @@
         "minify": true
       },
       "js": {
-        "minify": true,
-        "compile": true
+        "minify": true
       }
     }
+  ],
+  "extraDependencies": [
+    "sw.js"
   ]
 }

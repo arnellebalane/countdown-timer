@@ -14,5 +14,11 @@
 
     <body>
         <app-container></app-container>
+
+        <script>
+            if (navigator.serviceWorker) {
+                navigator.serviceWorker.register('sw.js');
+            }
+        </script>
     </body>
 </html>
