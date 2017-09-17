@@ -72,8 +72,24 @@
                         value: '00:00',
                         observer: 'observeDurationString'
                     },
-                    running: Boolean
+                    running: Boolean,
+                    keyboardEventCallback: Function
                 };
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                this.keyboardEventCallback = (e) => {
+                    if (e.code === 'Space') {
+                        this.toggleTimer();
+                    }
+                };
+                document.addEventListener('keydown', this.keyboardEventCallback);
+            }
+
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                document.removeEventListener('keydown', this.keyboardEventCallback);
             }
 
             observeDurationString() {
@@ -93,6 +109,10 @@
 
             resetTimer() {
                 this.dispatchEvent(new CustomEvent('reset'));
+            }
+
+            toggleTimer() {
+                return this.running ? this.resetTimer() : this.startTimer();
             }
         }
 
