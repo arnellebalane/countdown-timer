@@ -2,5 +2,19 @@
   "entrypoint": "index.html",
   "sources": [
     "source/**/*"
+  ],
+  "builds": [
+    {
+      "html": {
+        "minify": true
+      },
+      "css": {
+        "minify": true
+      },
+      "js": {
+        "minify": true,
+        "compile": true
+      }
+    }
   ]
 }
